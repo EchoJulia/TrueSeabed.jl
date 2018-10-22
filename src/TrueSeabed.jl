@@ -1,13 +1,15 @@
 module TrueSeabed
 
 using AliasedSeabed
+using Images
+using Statistics
 
 export blackwell_tsbmask
 
-function blackwell_tsbmask(Sv, ntheta, nphi; Ttheta=702, Tphi=282, dtheta=28, dphi=52, minSv=-50)
+function blackwell_tsbmask(Sv, ntheta, nphi; Ttheta=702, Tphi=282, dtheta=28, dphi=52, minSv=-50, backstep=50)
 
     # Run ASB with a high threshold
-    asb = asbmask(Sv, ntheta, nphi, Ttheta=Ttheta, Tphi=Tphi, dtheta=dtheta, dphi=dphi, minSv=minSv)
+    asb = blackwell_asbmask(Sv, ntheta, nphi, Ttheta=Ttheta, Tphi=Tphi, dtheta=dtheta, dphi=dphi, minSv=minSv)
     c = copy(asb)
 
     # Label areas of ASB
@@ -26,7 +28,9 @@ function blackwell_tsbmask(Sv, ntheta, nphi; Ttheta=702, Tphi=282, dtheta=28, dp
     for j in 1:n
         for i in 1:m
             if c[i,j]
-                c[i:end,j] .= true
+                k = i - backstep
+                k - max(k, 1)
+                c[k:end,j] .= true
                 break
             end
         end
