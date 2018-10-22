@@ -1,0 +1,8 @@
+name = "TrueSeabed"
+uuid = "887c47b4-d5da-11e8-3966-f72e3286a748"
+authors = ["Rob Blackwell <rob@robblackwell.com>"]
+version = "0.1.0"
+
+[deps]
+AliasedSeabed = "292ee863-f57e-5671-b0f8-a23ec07c50d4"
+Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
